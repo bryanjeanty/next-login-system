@@ -2,19 +2,46 @@
 const express = require("express");
 const next = require("next");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 require("dotenv").config();
 
-// connect to database
-const mongooseOptions = {
+// mongoose configuration
+const mongooseConfig = {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
 };
 
+// connect to database
 mongoose
-  .connect(process.env.MONGO_URI, mongooseOptions)
+  .connect(process.env.MONGO_URI, mongooseConfig)
   .then(() => console.log("DB Connected"))
   .catch(error => console.log(`DB connection error: ${error.message}`));
+
+// timestamp configuration
+const second = 1000;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const week = day * 7;
+const timeConfig = { second, minute, hour, day, week };
+
+// session configuration
+const sessionConfig = {
+  name: "user-auth.sid",
+  secret: process.env.SESSION_SECRET,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 2 * timeConfig.week
+  }),
+  resave: false,
+  saveUnitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 2 * timeConfig.week
+  }
+};
 
 // set initial variables
 const app = express();
@@ -38,6 +65,9 @@ server.prepare().then(() => {
   app.get("*", (req, res) => {
     handle(req, res);
   });
+
+  // setup middleware
+  app.use(session(sessionConfig));
 
   // set port to listen to
   app.listen(port, (req, res) => {
