@@ -14,7 +14,7 @@ const mongooseOptions = {
 mongoose
   .connect(process.env.MONGO_URI, mongooseOptions)
   .then(() => console.log("DB Connected"))
-  .catch(error => console.log(`DB connection error: ${err.message}`));
+  .catch(error => console.log(`DB connection error: ${error.message}`));
 
 // set initial variables
 const app = express();
