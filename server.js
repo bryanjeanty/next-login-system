@@ -7,6 +7,8 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const validator = require("express-validator");
 const morgan = require("morgan");
+const helmet = require("helmet");
+const compression = require("compression");
 require("dotenv").config();
 
 // load files
@@ -65,34 +67,48 @@ const handle = server.getRequestHandler();
 // create next server
 server.prepare().then(() => {
   // let next handle all next-related files & events
-  app.get("/_next/*", (req, res) => {
-    handle(req, res);
+  app.get("/_next/*", (request, response) => {
+    handle(request, response);
   });
 
-  app.get("/static/*", (req, res) => {
-    handle(req, res);
+  app.get("/static/*", (request, response) => {
+    handle(request, response);
   });
 
-  app.get("*", (req, res) => {
-    handle(req, res);
+  app.get("*", (request, response) => {
+    handle(request, response);
   });
+
+  // setup production conditions
+  if (!dev) {
+    app.use(helmet());
+    app.use(compression());
+    app.set("trust proxy", 1);
+    sessionConfig.cookie.secure = true;
+  }
 
   // setup middleware
   app.use(express.json());
   app.use(validator());
-  app.use(morgan("dev", { skip: req => req.url.includes("_next") }));
+  app.use(morgan("dev", { skip: request => request.url.includes("_next") }));
   app.use(session(sessionConfig));
   app.use(passport.initialize());
   app.use(passport.session());
 
   // custom middleware
-  app.use((req, res, next) => {
-    res.locals.user = req.user || null;
+  app.use((request, response, next) => {
+    response.locals.user = request.user || null;
     next();
   });
 
+  // error handline
+  app.use((error, request, response, next) => {
+    const { status = 500, message } = error;
+    response.status(status).json(message);
+  });
+
   // set port to listen to
-  app.listen(port, (req, res) => {
+  app.listen(port, (request, response) => {
     console.log(`Listening on port ${root}`);
   });
 });
