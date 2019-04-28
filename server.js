@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
+const validator = require("express-validator");
+const morgan = require("morgan");
 require("dotenv").config();
 
 // load files
@@ -77,6 +79,8 @@ server.prepare().then(() => {
 
   // setup middleware
   app.use(express.json());
+  app.use(validator());
+  app.use(morgan("dev", { skip: req => req.url.includes("_next") }));
   app.use(session(sessionConfig));
   app.use(passport.initialize());
   app.use(passport.session());
