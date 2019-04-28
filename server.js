@@ -13,6 +13,8 @@ require("dotenv").config();
 
 // load files
 const User = require("./models/User");
+const userRouter = require("./routes/User");
+const sessionRouter = require("./routes/Session");
 
 // mongoose configuration
 const mongooseConfig = {
@@ -100,6 +102,10 @@ server.prepare().then(() => {
     response.locals.user = request.user || null;
     next();
   });
+
+  // use routers
+  app.use("/api/users", userRouter);
+  app.use("/api/session", sessionRouter);
 
   // error handline
   app.use((error, request, response, next) => {

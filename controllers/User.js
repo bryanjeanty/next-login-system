@@ -12,6 +12,7 @@ const getUserFeed = () => {};
 
 // post functions
 const validateNewUser = () => {};
+
 const signupNewUser = () => {};
 
 // update function
