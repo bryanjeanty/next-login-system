@@ -4,7 +4,11 @@ const next = require("next");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
+const passport = require("passport");
 require("dotenv").config();
+
+// load files
+const User = require("./models/User");
 
 // mongoose configuration
 const mongooseConfig = {
@@ -43,6 +47,11 @@ const sessionConfig = {
   }
 };
 
+// passport configuration
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // set initial variables
 const app = express();
 const dev = process.env.NODE_ENV !== "production";
@@ -68,6 +77,14 @@ server.prepare().then(() => {
 
   // setup middleware
   app.use(session(sessionConfig));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  // custom middleware
+  app.use((req, res, next) => {
+    res.locals.user = req.user || null;
+    next();
+  });
 
   // set port to listen to
   app.listen(port, (req, res) => {
