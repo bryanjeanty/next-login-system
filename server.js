@@ -12,9 +12,9 @@ const compression = require("compression");
 require("dotenv").config();
 
 // load files
-const User = require("./models/User");
-const userRouter = require("./routes/User");
-const sessionRouter = require("./routes/Session");
+const User = require("./server/models/User");
+const userRouter = require("./server/routes/User");
+const sessionRouter = require("./server/routes/Session");
 
 // mongoose configuration
 const mongooseConfig = {
