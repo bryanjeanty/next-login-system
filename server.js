@@ -76,6 +76,7 @@ server.prepare().then(() => {
   });
 
   // setup middleware
+  app.use(express.json());
   app.use(session(sessionConfig));
   app.use(passport.initialize());
   app.use(passport.session());
