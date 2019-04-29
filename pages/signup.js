@@ -6,8 +6,7 @@ import { signup } from "../redux/actions/user";
 class Signup extends Component {
   state = {
     email: "",
-    password: "",
-    buttonClicked: false
+    password: ""
   };
 
   handleChange = event => {
@@ -18,7 +17,6 @@ class Signup extends Component {
 
   signup = event => {
     event.preventDefault();
-    this.setState({ buttonClick: true });
 
     const { email, password } = this.state;
 
