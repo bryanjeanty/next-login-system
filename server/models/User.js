@@ -7,8 +7,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       unique: true,
-      minlength: 4,
-      maxlength: 10,
       required: "Email is required"
     }
   },
@@ -17,6 +15,9 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
+UserSchema.plugin(passportLocalMongoose, {
+  usernameField: "email",
+  passwordField: "password"
+});
 
 module.exports = mongoose.model("User", UserSchema);

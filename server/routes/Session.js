@@ -12,5 +12,7 @@ const router = new Router();
 
 // setup routes
 // endpoint: '/api/session'
-router.post("/signin", catchErrors(startSession));
+router.post("/signin", startSession);
 router.delete("/signout", catchErrors(endSession));
+
+module.exports = router;

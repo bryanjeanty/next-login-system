@@ -31,3 +31,5 @@ router
   .put(checkSession, catchErrors(updateUser))
   .delete(checkSession, catchErrors(deleteUser));
 router.get("/:id/feed", checkSession, catchErrors(getUserFeed));
+
+module.exports = router;

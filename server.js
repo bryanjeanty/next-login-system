@@ -46,7 +46,7 @@ const sessionConfig = {
     ttl: 2 * timeConfig.week
   }),
   resave: false,
-  saveUnitialized: false,
+  saveUninitialized: false,
   cookie: {
     httpOnly: true,
     maxAge: 2 * timeConfig.week
@@ -68,6 +68,24 @@ const handle = server.getRequestHandler();
 
 // create next server
 server.prepare().then(() => {
+  // setup middleware
+  app.use(express.json());
+  app.use(validator());
+  app.use(morgan("dev", { skip: request => request.url.includes("_next") }));
+  app.use(session(sessionConfig));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  // custom middleware
+  app.use((request, response, next) => {
+    response.locals.user = request.user || null;
+    next();
+  });
+
+  // use routers
+  app.use("/api/users", userRouter);
+  app.use("/api/session", sessionRouter);
+
   // let next handle all next-related files & events
   app.get("/_next/*", (request, response) => {
     handle(request, response);
@@ -88,24 +106,6 @@ server.prepare().then(() => {
     app.set("trust proxy", 1);
     sessionConfig.cookie.secure = true;
   }
-
-  // setup middleware
-  app.use(express.json());
-  app.use(validator());
-  app.use(morgan("dev", { skip: request => request.url.includes("_next") }));
-  app.use(session(sessionConfig));
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  // custom middleware
-  app.use((request, response, next) => {
-    response.locals.user = request.user || null;
-    next();
-  });
-
-  // use routers
-  app.use("/api/users", userRouter);
-  app.use("/api/session", sessionRouter);
 
   // error handline
   app.use((error, request, response, next) => {

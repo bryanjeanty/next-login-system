@@ -1,4 +1,4 @@
-import { formTypes } from "../actions/types";
+import { formTypes } from "../actions/types/form";
 import { formState } from "../state/form";
 
 const formReducer = (state = formState, action) => {

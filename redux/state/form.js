@@ -1,7 +1,5 @@
-const formState = {
+export const formState = {
   email: "",
   password: "",
   buttonClicked: false
 };
-
-export default formState;
