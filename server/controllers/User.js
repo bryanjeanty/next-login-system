@@ -44,7 +44,10 @@ const signupNewUser = async (request, response) => {
     if (error) {
       return response.status(500).send(error.message);
     }
-    response.json(user);
+
+    const newUser = { email: user.email, password: user.password };
+
+    response.json(newUser);
   });
 };
 
