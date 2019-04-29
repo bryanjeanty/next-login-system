@@ -14,7 +14,9 @@ const startSession = (request, response, next) => {
         return response.status(500).json(error.message);
       }
 
-      response.json(user);
+      const userData = { email: user.email, message: "Session started!" };
+
+      response.json(userData);
     });
   })(request, response, next);
 };

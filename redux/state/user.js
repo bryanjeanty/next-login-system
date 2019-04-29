@@ -1,5 +1,7 @@
 const userState = {
-  user: {}
+  isFetching: false,
+  email: {},
+  sessionStarted: false
 };
 
 export { userState };
