@@ -23,7 +23,12 @@ const userReducer = (state = userState, action) => {
         isFetching: false
       };
     case userTypes.SIGNIN_ERROR:
-      return { ...state, message: action.message, isFetching: false };
+      return {
+        ...state,
+        message: action.message,
+        session: false,
+        isFetching: false
+      };
     default:
       return state;
   }

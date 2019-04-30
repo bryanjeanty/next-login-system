@@ -8,6 +8,8 @@ class Signin extends Component {
   state = {
     email: "",
     password: "",
+    error: "",
+    showError: false,
     isDisabled: false
   };
 
@@ -31,21 +33,21 @@ class Signin extends Component {
       const { session } = user;
       if (session) {
         window[WINDOW_USER_VAR] = user || {};
-        Router.replace("/feed");
+        Router.replace("/home");
       }
     } catch (error) {
       console.error("error", error);
-      // this.ShowError(error);
+      this.catchError(error);
     }
   };
 
-  // ShowError = error => {
-  //   this.setState({ isDisabled: false });
-  //   return <div>{error.message}</div>;
-  // };
+  catchError = error => {
+    const errorMessage = error.message;
+    this.setState({ isDisabled: false, error: errorMessage, showError: true });
+  };
 
   render() {
-    const { email, password, isDisabled } = this.state;
+    const { email, password, isDisabled, error, showError } = this.state;
 
     return (
       <div>
@@ -72,7 +74,12 @@ class Signin extends Component {
             onClick={this.signin}
           />
         </form>
-        {/* <ShowError /> */}
+        <div className="error">{error}</div>
+        <style jsx>{`
+          .error {
+            display: ${showError ? "block" : "none"};
+          }
+        `}</style>
       </div>
     );
   }
