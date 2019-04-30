@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Feed extends Component {
   render() {
-    return <div />;
+    return <div>Welcome to your feed!</div>;
   }
 }
 

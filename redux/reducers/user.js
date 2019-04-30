@@ -6,18 +6,24 @@ const userReducer = (state = userState, action) => {
     case userTypes.FETCHING:
       return { ...state, isFetching: true };
     case userTypes.SIGNUP_SUCCESS:
-      return { ...state, message: action.message, email: action.email };
+      return {
+        ...state,
+        message: action.message,
+        email: action.email,
+        isFetching: false
+      };
     case userTypes.SIGNUP_ERROR:
-      return { ...state, message: action.message };
+      return { ...state, message: action.message, isFetching: false };
     case userTypes.SIGNIN_SUCCESS:
       return {
         ...state,
         message: action.message,
         email: action.email,
-        sessionStarted: true
+        session: true,
+        isFetching: false
       };
     case userTypes.SIGNIN_ERROR:
-      return { ...state, message: action.message };
+      return { ...state, message: action.message, isFetching: false };
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 const userState = {
   isFetching: false,
   email: {},
-  sessionStarted: false
+  session: false
 };
 
 export { userState };

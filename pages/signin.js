@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Router from "next/router";
 import { connect } from "react-redux";
 import { signin } from "../redux/actions/user";
+import { WINDOW_USER_VAR } from "../lib/auth";
 
 class Signin extends Component {
   state = {
@@ -18,27 +19,30 @@ class Signin extends Component {
 
   signin = event => {
     event.preventDefault();
-    const { email, password } = this.state;
-
     const { user } = this.props;
     if (user.isFetching) {
       this.setState({ isDisabled: true });
     }
 
+    const { email, password } = this.state;
+
     try {
       this.props.signin({ email, password });
-      const { sessionStarted } = user;
-      if (sessionStarted) {
-        Router.push("/feed");
+      const { session } = user;
+      if (session) {
+        window[WINDOW_USER_VAR] = user || {};
+        Router.replace("/feed");
       }
     } catch (error) {
-      if (error) {
-        return (Error = () => {
-          return <div>{error.message}</div>;
-        });
-      }
+      console.error("error", error);
+      // this.ShowError(error);
     }
   };
+
+  // ShowError = error => {
+  //   this.setState({ isDisabled: false });
+  //   return <div>{error.message}</div>;
+  // };
 
   render() {
     const { email, password, isDisabled } = this.state;
@@ -68,7 +72,7 @@ class Signin extends Component {
             onClick={this.signin}
           />
         </form>
-        <Error />
+        {/* <ShowError /> */}
       </div>
     );
   }
