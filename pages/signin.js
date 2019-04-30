@@ -19,17 +19,18 @@ class Signin extends Component {
     });
   };
 
-  signin = event => {
+  signin = async event => {
     event.preventDefault();
-    const { user } = this.props;
-    if (user.isFetching) {
-      this.setState({ isDisabled: true });
-    }
-
-    const { email, password } = this.state;
 
     try {
-      this.props.signin({ email, password });
+      const { email, password } = this.state;
+      await this.props.signin({ email, password });
+
+      const { user } = this.props;
+      if (user.isFetching) {
+        this.setState({ isDisabled: true });
+      }
+
       const { session } = user;
       if (session) {
         window[WINDOW_USER_VAR] = user || {};

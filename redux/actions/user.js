@@ -1,5 +1,6 @@
 import { userTypes } from "./types/user";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const signup = ({ email, password }) => async dispatch => {
   dispatch({ type: userTypes.FETCHING });
@@ -41,4 +42,22 @@ const signin = ({ email, password }) => async dispatch => {
   }
 };
 
-export { signup, signin };
+const signout = () => async dispatch => {
+  dispatch({ type: userTypes.FETCHING });
+  try {
+    const { data } = await axios.get("/api/session/signout", {
+      withCredentials: true
+    });
+    return dispatch({
+      type: userTypes.SIGNOUT_SUCCESS,
+      message: data.message
+    });
+  } catch (error) {
+    return dispatch({
+      type: userTypes.SIGNOUT_ERROR,
+      message: error.message
+    });
+  }
+};
+
+export { signup, signin, signout };

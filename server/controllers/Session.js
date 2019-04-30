@@ -31,8 +31,8 @@ const checkSession = (request, response, next) => {
 
 const endSession = (request, response) => {
   response.clearCookie("user-auth.sid");
-  request.logout();
   response.json({ message: "You are now signed out!" });
+  request.logout();
 };
 
 module.exports = { startSession, checkSession, endSession };

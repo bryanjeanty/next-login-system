@@ -1,6 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Link from "next/link";
+import Router from "next/router";
 import { connect } from "react-redux";
+import { signout } from "../redux/actions/user";
+import { WINDOW_USER_VAR } from "../lib/auth";
 
 const Brand = ({ title, href }) => {
   return (
@@ -12,23 +15,37 @@ const Brand = ({ title, href }) => {
   );
 };
 
-const Layout = ({ children, user }) => {
+const Layout = ({ children, user, signout }) => {
+  const handleClick = () => {
+    try {
+      signout();
+      window[WINDOW_USER_VAR] = {};
+      Router.replace("/signin");
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
+
   return (
     <div>
       <nav>
         <Brand href="/home" title="Music Search" />
         <ul>
-          {!user ? (
-            <div>
+          {Object.keys(user.email).length == 0 ? (
+            <Fragment>
               <Link href="/signup">
                 <a>Sign Up</a>
               </Link>
               <Link href="/signin">
                 <a>Sign In</a>
               </Link>
-            </div>
+            </Fragment>
           ) : (
-            <button type="submit">Sign Out</button>
+            <input
+              value="Sign Out"
+              onClick={() => handleClick()}
+              type="submit"
+            />
           )}
         </ul>
       </nav>
@@ -39,5 +56,5 @@ const Layout = ({ children, user }) => {
 
 export default connect(
   ({ user }) => ({ user }),
-  null
+  { signout }
 )(Layout);

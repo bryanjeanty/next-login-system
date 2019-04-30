@@ -29,6 +29,20 @@ const userReducer = (state = userState, action) => {
         session: false,
         isFetching: false
       };
+    case userTypes.SIGNOUT_SUCCESS:
+      return {
+        ...state,
+        message: action.message,
+        email: {},
+        session: false,
+        isFetching: false
+      };
+    case userTypes.SIGNOUT_ERROR:
+      return {
+        ...state,
+        message: action.message,
+        isFetching: false
+      };
     default:
       return state;
   }
