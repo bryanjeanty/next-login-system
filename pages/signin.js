@@ -38,7 +38,7 @@ class Signin extends Component {
       }
     } catch (error) {
       console.error("error", error);
-      this.catchError(error);
+      return this.catchError(error);
     }
   };
 

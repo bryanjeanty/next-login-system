@@ -20,18 +20,19 @@ const Layout = ({ children, user, signout }) => {
     try {
       signout();
       window[WINDOW_USER_VAR] = {};
-      Router.replace("/signin");
     } catch (error) {
       console.error("error", error);
     }
   };
+
+  const sessionEmail = window[WINDOW_USER_VAR].email || user.email;
 
   return (
     <div>
       <nav>
         <Brand href="/" title="Music Search" />
         <ul>
-          {Object.keys(user.email).length == 0 ? (
+          {Object.keys(sessionEmail).length == 0 ? (
             <Fragment>
               <Link href="/signup">
                 <a>Sign Up</a>
