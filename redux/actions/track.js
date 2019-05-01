@@ -17,7 +17,7 @@ const getTracks = () => async dispatch => {
     console.log(data);
     return dispatch({
       type: trackTypes.GET_TRACKLIST_SUCCESS,
-      trackList: data,
+      trackList: data.message.body.track_list,
       message: "Success!"
     });
   } catch (error) {
