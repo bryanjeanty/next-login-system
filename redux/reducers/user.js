@@ -43,6 +43,19 @@ const userReducer = (state = userState, action) => {
         message: action.message,
         isFetching: false
       };
+    case userTypes.GET_USERS_SUCCESS:
+      return {
+        ...state,
+        usersList: action.usersList,
+        message: action.message,
+        isFetching: false
+      };
+    case userTypes.GET_USERS_ERROR:
+      return {
+        ...state,
+        message: action.message,
+        isFetching: false
+      };
     default:
       return state;
   }

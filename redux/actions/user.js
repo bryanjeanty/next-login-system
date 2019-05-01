@@ -60,4 +60,21 @@ const signout = () => async dispatch => {
   }
 };
 
-export { signup, signin, signout };
+const getUsers = () => async dispatch => {
+  dispatch({ type: userTypes.FETCHING });
+  try {
+    const { data } = await axios.get("/api/users");
+    return dispatch({
+      type: userTypes.GET_USERS_SUCCESS,
+      usersList: data,
+      message: data.message
+    });
+  } catch (error) {
+    return dispatch({
+      type: userTypes.GET_USERS_ERROR,
+      message: error.message
+    });
+  }
+};
+
+export { signup, signin, signout, getUsers };
