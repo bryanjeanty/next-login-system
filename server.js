@@ -9,6 +9,7 @@ const validator = require("express-validator");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const compression = require("compression");
+const cors = require("cors");
 require("dotenv").config();
 
 // load files
@@ -58,6 +59,11 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// cors configuration
+const corsOptions = {
+  origin: "http://localhost:3000"
+};
+
 // set initial variables
 const app = express();
 const dev = process.env.NODE_ENV !== "production";
@@ -75,6 +81,7 @@ server.prepare().then(() => {
   app.use(session(sessionConfig));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(cors(corsOptions));
 
   // custom middleware
   app.use((request, response, next) => {

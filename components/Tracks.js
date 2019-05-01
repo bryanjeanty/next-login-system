@@ -1,20 +1,22 @@
 import React, { Component } from "react";
-import { trackState } from "../redux/state/track";
+import { connect } from "react-redux";
+import { getTracks } from "../redux/actions/track";
 
 class Tracks extends Component {
-  state = trackState;
-
   componentDidMount() {
-    this.getTracks();
+    this.props.getTracks();
   }
 
-  getTracks = () => {
-    console.log(this.state);
-  };
+  //   getTracks = () => {
+  //     console.log(this.state);
+  //   };
 
   render() {
     return <div>Tracks</div>;
   }
 }
 
-export default Tracks;
+export default connect(
+  ({ track }) => ({ track }),
+  { getTracks }
+)(Tracks);

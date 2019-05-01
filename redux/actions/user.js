@@ -1,6 +1,5 @@
 import { userTypes } from "./types/user";
 import axios from "axios";
-axios.defaults.withCredentials = true;
 
 const signup = ({ email, password }) => async dispatch => {
   dispatch({ type: userTypes.FETCHING });
