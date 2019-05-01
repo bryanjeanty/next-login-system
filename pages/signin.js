@@ -34,7 +34,7 @@ class Signin extends Component {
       const { session } = user;
       if (session) {
         window[WINDOW_USER_VAR] = user || {};
-        Router.replace("/home");
+        Router.replace("/");
       }
     } catch (error) {
       console.error("error", error);

@@ -29,7 +29,7 @@ const Layout = ({ children, user, signout }) => {
   return (
     <div>
       <nav>
-        <Brand href="/home" title="Music Search" />
+        <Brand href="/" title="Music Search" />
         <ul>
           {Object.keys(user.email).length == 0 ? (
             <Fragment>
