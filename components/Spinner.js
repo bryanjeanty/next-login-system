@@ -1,12 +1,14 @@
 import React from "react";
+import { Spinner } from "reactstrap";
 
-export default () => {
+const MySpinner = () => {
   return (
     <div>
-      <img src="/static/spinner.gif" alt="Loading..." className="spinner" />
+      <Spinner className="spinner" />
       <style jsx>{`
             .spinner {
-                width: 200px,
+                width: 4rem,
+                height: 4rem,
                 margin: 40px auto,
                 display: 'block'
             }
@@ -14,3 +16,5 @@ export default () => {
     </div>
   );
 };
+
+export default MySpinner;

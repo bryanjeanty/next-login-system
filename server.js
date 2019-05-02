@@ -93,6 +93,13 @@ server.prepare().then(() => {
   app.use("/api/users", userRouter);
   app.use("/api/session", sessionRouter);
 
+  // custom routes
+  app.get("/lyrics/track/:id", (request, response) => {
+    return server.render(request, response, "/lyrics", {
+      id: request.params.id
+    });
+  });
+
   // let next handle all next-related files & events
   app.get("/_next/*", (request, response) => {
     handle(request, response);

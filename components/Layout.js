@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Link from "next/link";
-import Router from "next/router";
+import { Container } from "reactstrap";
 import { connect } from "react-redux";
 import { signout } from "../redux/actions/user";
 import { WINDOW_USER_VAR } from "../lib/auth";
@@ -28,7 +28,7 @@ const Layout = ({ children, user, signout }) => {
   const sessionEmail = window[WINDOW_USER_VAR].email || user.email;
 
   return (
-    <div>
+    <Container>
       <nav>
         <Brand href="/" title="Music Search" />
         <ul>
@@ -51,7 +51,7 @@ const Layout = ({ children, user, signout }) => {
         </ul>
       </nav>
       {children}
-    </div>
+    </Container>
   );
 };
 

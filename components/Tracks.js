@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { getTracks } from "../redux/actions/track";
-import Spinner from "./Spinner";
+import MySpinner from "./Spinner";
 import TrackItem from "./TrackItem";
 import { Container, Row } from "reactstrap";
 
@@ -13,7 +13,7 @@ class Tracks extends Component {
   render() {
     const { isFetching, heading, trackList } = this.props.track;
     if (isFetching) {
-      return <Spinner />;
+      return <MySpinner />;
     } else {
       return (
         <Container>
