@@ -19,14 +19,15 @@ class Tracks extends Component {
         <Container>
           <h3 className="text-center mb-4">{heading}</h3>
           <Row>
-            {trackList.map(trackItem => {
-              return (
-                <TrackItem
-                  key={trackItem.track.track_id}
-                  track={trackItem.track}
-                />
-              );
-            })}
+            {trackList &&
+              trackList.map(trackItem => {
+                return (
+                  <TrackItem
+                    key={trackItem.track.track_id}
+                    track={trackItem.track}
+                  />
+                );
+              })}
           </Row>
         </Container>
       );

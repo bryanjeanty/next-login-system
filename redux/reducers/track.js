@@ -14,6 +14,21 @@ const trackReducer = (state = trackState, action) => {
       };
     case trackTypes.GET_TRACKLIST_ERROR:
       return { ...state, isFetching: false, message: action.message };
+    case trackTypes.SEARCH_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        trackList: action.trackList,
+        heading: "Search Results",
+        message: action.message
+      };
+    case trackTypes.SEARCH_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        heading: "Cannot find...",
+        error: action.message
+      };
     default:
       return state;
   }

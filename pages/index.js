@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { WINDOW_USER_VAR } from "../lib/auth";
 import { getUsers } from "../redux/actions/user";
 import Tracks from "../components/Tracks";
+import Search from "../components/Search";
 
 class Index extends Component {
   componentDidMount() {
@@ -40,6 +41,7 @@ class Index extends Component {
         <h3>Welcome, {userName}</h3>
         <ul>
           <UsersList />
+          <Search />
           <Tracks />
         </ul>
       </div>
