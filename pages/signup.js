@@ -27,10 +27,6 @@ class Signup extends Component {
 
       const { user } = this.props;
 
-      if (user.isFetching) {
-        this.setState({ isDisabled: true });
-      }
-
       if (user.email) {
         this.setState({ message: user.message });
         setTimeout(() => {
@@ -51,11 +47,12 @@ class Signup extends Component {
     return (
       <Layout page="signup">
       <div className="form-wrapper">
+        <div className="message">{message}</div>
         <div className="card form-container">
         <h5 className="card-title">Sign Up</h5>
         <form className="signup-form">
            <div className="form-group">
-             <label>Email Adress</label>
+             <label>Email Address</label>
              <input
                 id="email-input"
                 className="form-control"
@@ -82,7 +79,8 @@ class Signup extends Component {
              />
           </div>
           <input
-            className="btn btn-primary signup-btn"
+            id="signup-btn"
+            className="btn btn-primary"
             name="submit"
             type="submit"
             value="Sign Up"
@@ -91,7 +89,6 @@ class Signup extends Component {
           />
         </form>
         </div>
-        <div className="message">{message}</div>
         <style jsx>{`
            .form-wrapper {
               display: flex;
@@ -111,7 +108,7 @@ class Signup extends Component {
            .signup-form {
               width: 100%;
            }
-           .signup-btn {
+           #signup-btn {
               border-radius: 0;
            }
         `}</style>

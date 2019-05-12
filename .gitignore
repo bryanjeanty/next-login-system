@@ -4,3 +4,4 @@ package-lock.json
 .next/
 components/.Layout.js.swp
 pages/.signup.js.swp
+pages/.signin.js.swp
