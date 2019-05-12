@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Router from "next/router";
 import { signup } from "../redux/actions/user";
+import Layout from "../components/Layout";
 
 class Signup extends Component {
   state = {
@@ -9,7 +10,8 @@ class Signup extends Component {
     password: "",
     error: "",
     isDisabled: false,
-    showError: false
+    showError: false,
+    message: ''
   };
 
   handleChange = event => {
@@ -32,7 +34,10 @@ class Signup extends Component {
       }
 
       if (user.email) {
-        Router.replace("/signin");
+        this.setState({ message: user.message });
+        setTimeout(() => {
+           Router.replace("/signin");
+        }, 350);
       }
     } catch (error) {
       if (error) {
@@ -52,6 +57,7 @@ class Signup extends Component {
     const { email, password, isDisabled, error, showError } = this.state;
 
     return (
+      <Layout page="signup">
       <div>
         <form>
           <input
@@ -83,6 +89,7 @@ class Signup extends Component {
           }
         `}</style>
       </div>
+      </Layout>
     );
   }
 }

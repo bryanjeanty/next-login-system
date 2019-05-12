@@ -5,17 +5,7 @@ import { connect } from "react-redux";
 import { signout } from "../redux/actions/user";
 import { WINDOW_USER_VAR } from "../lib/auth";
 
-const Brand = ({ title, href }) => {
-  return (
-    <Link href={href}>
-      <a>
-        <h2>{title}</h2>
-      </a>
-    </Link>
-  );
-};
-
-const Layout = ({ children, user, signout }) => {
+const Layout = ({ children, user, signout, page }) => {
   const handleClick = () => {
     try {
       signout();
@@ -25,22 +15,54 @@ const Layout = ({ children, user, signout }) => {
     }
   };
 
+  const Brand = ({ title, href }) => {
+     return (
+        <div id="brand">
+           <Link href={href}>
+              <a id="brand-link">
+                 <h2 id="brand-title">{title}</h2>
+              </a>
+           </Link>
+       <style jsx>{`
+          #brand {
+             width: 25%;
+          }
+          #brand-link {
+             color: #eee;
+             text-decoration: none;
+          }
+          #brand-link:hover {
+             color: #cdcdcd;
+          }
+       `}</style>
+       </div>
+     );
+  };
+
   const sessionEmail = window[WINDOW_USER_VAR].email || user.email;
 
   return (
-    <Container>
-      <nav>
-        <Brand href="/" title="Music Search" />
-        <ul>
-          {Object.keys(sessionEmail).length == 0 ? (
-            <Fragment>
-              <Link href="/signup">
-                <a>Sign Up</a>
-              </Link>
-              <Link href="/signin">
-                <a>Sign In</a>
-              </Link>
-            </Fragment>
+    <Fragment>
+      <nav className="navbar">
+        <Container>
+        <div className="auth-nav">
+        <div className="brand-container">
+           <Brand href="/" title="Music Search" />
+        </div>
+        <Fragment>
+          {Object.keys(sessionEmail).length === 0 ? (
+           <Fragment>
+              <div className="signup">
+                 <Link href="/signup">
+                   <a className="navlinks">Sign Up</a>
+                 </Link>
+              </div>
+              <div className="signin">
+                 <Link href="/signin">
+                   <a className="navlinks">Sign In</a>
+                 </Link>
+              </div>
+           </Fragment>
           ) : (
             <input
               value="Sign Out"
@@ -48,10 +70,50 @@ const Layout = ({ children, user, signout }) => {
               type="submit"
             />
           )}
-        </ul>
+        </Fragment>
+        </div>
+        </Container>
       </nav>
-      {children}
-    </Container>
+      <Container>
+         {children}
+      </Container>
+      <style jsx>{`
+         .navbar {
+            background-color: #222;
+         }
+         .auth-nav {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-gap: 0.5rem;
+         }
+         .brand-container {
+            grid-column: 1 / 9;
+         }
+         .signup {
+            grid-column: 10 / 11;
+            display: ${ (page && page === 'signup') ? 'none' : 'flex' };
+         }
+         .signin {
+            grid-column: 10 / 11;
+            display: ${ (page && page === 'signin') ? 'none' : 'flex' };
+         }
+         .navlinks {
+            margin: auto;
+            padding: 0.5rem 0.6rem;
+            background-image: linear-gradient(to bottom, #eee, #cdcdcd);
+            font-weight: 550;
+            color: #222;
+            text-decoration: none;
+            text-align: center;
+         }
+         .navlinks:hover {
+            background-image: none;
+            border: 0.75px solid #eee;
+            color: #eee;
+         }
+      `}</style>
+    </Fragment>
   );
 };
 

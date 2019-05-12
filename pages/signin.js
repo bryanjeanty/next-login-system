@@ -3,6 +3,7 @@ import Router from "next/router";
 import { connect } from "react-redux";
 import { signin } from "../redux/actions/user";
 import { WINDOW_USER_VAR } from "../lib/auth";
+import Layout from "../components/Layout";
 
 class Signin extends Component {
   state = {
@@ -51,6 +52,7 @@ class Signin extends Component {
     const { email, password, isDisabled, error, showError } = this.state;
 
     return (
+      <Layout page="signin">
       <div>
         <form>
           <input
@@ -82,6 +84,7 @@ class Signin extends Component {
           }
         `}</style>
       </div>
+      </Layout>
     );
   }
 }
