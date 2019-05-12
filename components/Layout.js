@@ -26,6 +26,7 @@ const Layout = ({ children, user, signout, page }) => {
        <style jsx>{`
           #brand {
              width: 25%;
+             height: 100%;
           }
           #brand-link {
              color: #eee;
@@ -33,6 +34,9 @@ const Layout = ({ children, user, signout, page }) => {
           }
           #brand-link:hover {
              color: #cdcdcd;
+          }
+          #brand-title {
+             font-size: 2rem;
           }
        `}</style>
        </div>
@@ -74,17 +78,40 @@ const Layout = ({ children, user, signout, page }) => {
         </div>
         </Container>
       </nav>
-      <Container>
-         {children}
-      </Container>
+      <div className="page-container">
+         <Container>
+            {children}
+         </Container>
+      </div>
+      <style global jsx>{`
+         * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+         }
+         html, body {
+            height: 100%;
+         }
+         #__next {
+            height: 100%;
+         }
+         .container {
+            height: 100%;
+         }
+      `}</style>
       <style jsx>{`
          .navbar {
             background-color: #222;
+            position: absolute;
+            width: 100%;
+            display: flex;
          }
          .auth-nav {
             width: 100%;
             display: grid;
             grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: 1fr;
             grid-gap: 0.5rem;
          }
          .brand-container {
@@ -101,16 +128,19 @@ const Layout = ({ children, user, signout, page }) => {
          .navlinks {
             margin: auto;
             padding: 0.5rem 0.6rem;
-            background-image: linear-gradient(to bottom, #eee, #cdcdcd);
+            background-color: #eee;
             font-weight: 550;
             color: #222;
             text-decoration: none;
             text-align: center;
          }
          .navlinks:hover {
-            background-image: none;
+            background-color: #222;
             border: 0.75px solid #eee;
             color: #eee;
+         }
+         .page-container {
+            height: 100%;
          }
       `}</style>
     </Fragment>

@@ -8,9 +8,7 @@ class Signup extends Component {
   state = {
     email: "",
     password: "",
-    error: "",
     isDisabled: false,
-    showError: false,
     message: ''
   };
 
@@ -42,51 +40,80 @@ class Signup extends Component {
     } catch (error) {
       if (error) {
         console.error("error", error);
-        this.catchError(error);
+        this.setState({ message: error.message });
       }
     }
   };
 
-  catchError = error => {
-    const signupError =
-      (error.response && error.response.data) || error.message;
-    this.setState({ isDisabled: false, error: signupError, showError: true });
-  };
-
   render() {
-    const { email, password, isDisabled, error, showError } = this.state;
+    const { email, password, isDisabled, message } = this.state;
 
     return (
       <Layout page="signup">
-      <div>
-        <form>
+      <div className="form-wrapper">
+        <div className="card form-container">
+        <h5 className="card-title">Sign Up</h5>
+        <form className="signup-form">
+           <div className="form-group">
+             <label>Email Adress</label>
+             <input
+                id="email-input"
+                className="form-control"
+                name="email"
+                type="email"
+                autocomplete="off"
+                placeholder="Enter email..."
+                onChange={this.handleChange}
+                value={email}
+             />
+             <small className="form-text text-muted">We'll never give away your email</small>
+          </div>
+          <div className="form-group">
+             <label>Password</label>
+             <input
+                id="password-input"
+                className="form-control"
+                name="password"
+                type="password"
+                autocomplete="off"
+                placeholder="Enter password..."
+                onChange={this.handleChange}
+                value={password}
+             />
+          </div>
           <input
-            name="email"
-            type="email"
-            placeholder="Enter email..."
-            onChange={this.handleChange}
-            value={email}
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="Enter password..."
-            onChange={this.handleChange}
-            value={password}
-          />
-          <input
+            className="btn btn-primary signup-btn"
             name="submit"
             type="submit"
-            value="Signup"
+            value="Sign Up"
             onClick={this.signup}
             disabled={isDisabled}
           />
         </form>
-        <div className="error">{error}</div>
+        </div>
+        <div className="message">{message}</div>
         <style jsx>{`
-          .error {
-            display: ${showError ? "block" : "none"};
-          }
+           .form-wrapper {
+              display: flex;
+              height: 100%;
+           }
+           .form-container {
+              border: 1px solid #ccc;
+              width: 50%;
+              margin: auto;
+              border-radius: 0;
+              padding: 1.75rem;
+              box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.20);
+           }
+           .form-container > * {
+              margin: 0.25rem 0;
+           }
+           .signup-form {
+              width: 100%;
+           }
+           .signup-btn {
+              border-radius: 0;
+           }
         `}</style>
       </div>
       </Layout>
