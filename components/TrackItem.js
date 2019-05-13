@@ -17,13 +17,14 @@ class TrackItem extends Component {
   }
 
   handleClick = () => {
+    const { track } = this.props;
     Router.replace(`/lyrics/track/${track.track_id}`);
   };
 
   getAlbumImg = async () => {
      const { album_name, artist_name } = this.props.track;
      const proxyUrl = "https://damp-cove-73616.herokuapp.com/";
-     const bingImgUrlEndpoint = 'https://api.cognitive.microsoft.com/bing/v7.0/images/search';
+     const bingImgUrl = 'https://api.cognitive.microsoft.com/bing/v7.0/images/search';
      const { publicRuntimeConfig } = getConfig();
      const { BING_IMG_KEY } = publicRuntimeConfig;
      const axiosOptions = {
@@ -35,7 +36,7 @@ class TrackItem extends Component {
      const limiter = new Bottleneck({ maxConcurrent: 1, minTime: 1000 });
      const wrapped = limiter.wrap(axios.get);
      try{
-        const { data } = await wrapped(proxyUrl + bingImgUrlEndpoint + '?q=' + album_name + ' ' + artist_name, axiosOptions);
+        const { data } = await wrapped(proxyUrl + bingImgUrl + '?q=' + album_name + ' ' + artist_name, axiosOptions);
         if (data) {
            this.setState({ album_url: data.value[0].contentUrl, message: "Successfully fetched album img" });
         }
@@ -71,7 +72,7 @@ class TrackItem extends Component {
               </strong>
               : {track.album_name.length > 20 ? `${String(track.album_name).substring(0, 19)}...` : track.album_name}
             </CardText>
-            <Button onClick={() => handleClick()} className="btn-dark" block>
+            <Button onClick={this.handleClick} className="btn-dark" block>
               <Link href={`/lyrics/track/${track.track_id}`}>
                 <a className="track-link">
                   <i className="fas fa-chevron-right" /> View Lyrics

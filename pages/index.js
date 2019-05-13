@@ -42,9 +42,6 @@ class Index extends Component {
                 ) : (
                 <div>
                    <h5>Welcome, {userName}</h5>
-                   <ul>
-                      <UsersList />
-                   </ul>
                 </div>
                 )
              }

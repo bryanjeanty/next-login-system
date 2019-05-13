@@ -68,21 +68,21 @@ const Layout = ({ children, user, signout, page }) => {
               </div>
            </Fragment>
           ) : (
-            <input
-              value="Sign Out"
-              onClick={() => handleClick()}
-              type="submit"
-            />
+           <div className="signout">
+              <input
+                 value="Sign Out"
+                 onClick={() => handleClick()}
+                 type="submit"
+               />
+           </div>
           )}
         </Fragment>
         </div>
         </Container>
       </nav>
       <div className="page-container">
-         <Container className="boot-container">
-            <div className="page-wrapper">
-               {children}
-            </div>
+         <Container>
+            {children}
          </Container>
       </div>
       <style global jsx>{`
@@ -134,7 +134,21 @@ const Layout = ({ children, user, signout, page }) => {
             grid-column: 10 / 11;
             display: ${ (page && page === 'signin') ? 'none' : 'flex' };
          }
+         .signout {
+            grid-column: 10 / 11;
+            display: flex;
+         }
+         .signout input {
+            border: 0.75px solid #eee;
+            margin-right: 0;
+            margin-left: auto;
+            padding: 0.4rem 0.5rem;
+            background-color: #eee;
+            font-weight: 550;
+            color: #222;
+         }
          .navlinks {
+            border: 0.75px solid #eee;
             margin: auto 0 auto auto;
             padding: 0.5rem 0.6rem;
             background-color: #eee;
@@ -143,9 +157,8 @@ const Layout = ({ children, user, signout, page }) => {
             text-decoration: none;
             text-align: center;
          }
-         .navlinks:hover {
+         .navlinks:hover, .signout input:hover {
             background-color: #222;
-            border: 0.75px solid #eee;
             color: #eee;
          }
          .page-container {

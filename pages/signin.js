@@ -104,10 +104,10 @@ class Signin extends Component {
           .form-container > * {
              margin: 0.25rem 0;
           }
-          .signup-form {
+          .signin-form {
              width: 100%;
           }
-          #signup-btn {
+          #signin-btn {
              border-radius: 0;
           }
         `}</style>

@@ -47,6 +47,7 @@ class Search extends Component {
                   type="text"
                   placeholder="Song title..."
                   name="trackTitle"
+                  autocomplete="off"
                   value={trackTitle}
                   onChange={this.handleChange}
                 />
