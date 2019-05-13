@@ -4,6 +4,7 @@ import { WINDOW_USER_VAR } from "../lib/auth";
 import { getUsers } from "../redux/actions/user";
 import Tracks from "../components/Tracks";
 import Search from "../components/Search";
+import Layout from "../components/Layout";
 
 class Index extends Component {
   componentDidMount() {
@@ -31,21 +32,32 @@ class Index extends Component {
       });
     };
 
-    return Object.keys(sessionEmail).length === 0 ? (
-      <div>
-        <h3>Welcome, Guest!</h3>
-        <ul />
-      </div>
-    ) : (
-      <div>
-        <h3>Welcome, {userName}</h3>
-        <ul>
-          <UsersList />
-          <Search />
-          <Tracks />
-        </ul>
-      </div>
-    );
+    return (
+       <Layout page="index">
+          <div className="index-container">
+             {Object.keys(sessionEmail).length === 0 ? (
+                <div>
+                   <h5>Welcome, Guest!</h5>
+                </div>
+                ) : (
+                <div>
+                   <h5>Welcome, {userName}</h5>
+                   <ul>
+                      <UsersList />
+                   </ul>
+                </div>
+                )
+             }
+             <Search />
+             <Tracks />
+          </div>
+          <style jsx>{`
+             .index-container {
+                padding-top: 5rem;
+             }
+          `}</style>
+       </Layout>
+    )
   }
 }
 

@@ -79,8 +79,10 @@ const Layout = ({ children, user, signout, page }) => {
         </Container>
       </nav>
       <div className="page-container">
-         <Container>
-            {children}
+         <Container className="boot-container">
+            <div className="page-wrapper">
+               {children}
+            </div>
          </Container>
       </div>
       <style global jsx>{`
@@ -92,6 +94,12 @@ const Layout = ({ children, user, signout, page }) => {
          }
          html, body {
             height: 100%;
+            overflow: scroll;
+            overflow-x: hidden;
+         }
+	 ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
          }
          #__next {
             height: 100%;
@@ -102,6 +110,7 @@ const Layout = ({ children, user, signout, page }) => {
       `}</style>
       <style jsx>{`
          .navbar {
+            z-index: 5;
             background-color: #222;
             position: absolute;
             width: 100%;
@@ -119,14 +128,14 @@ const Layout = ({ children, user, signout, page }) => {
          }
          .signup {
             grid-column: 10 / 11;
-            display: ${ (page && page === 'signup') ? 'none' : 'flex' };
+            display: ${ (page && page !== 'signin') ? 'none' : 'flex' };
          }
          .signin {
             grid-column: 10 / 11;
             display: ${ (page && page === 'signin') ? 'none' : 'flex' };
          }
          .navlinks {
-            margin: auto;
+            margin: auto 0 auto auto;
             padding: 0.5rem 0.6rem;
             background-color: #eee;
             font-weight: 550;
@@ -140,6 +149,7 @@ const Layout = ({ children, user, signout, page }) => {
             color: #eee;
          }
          .page-container {
+            position: relative;
             height: 100%;
          }
       `}</style>

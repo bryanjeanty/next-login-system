@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
+    "bottleneck": "^2.18.1",
     "compression": "^1.7.4",
     "connect-mongo": "^2.0.3",
     "cors": "^2.8.5",
