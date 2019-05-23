@@ -38,7 +38,7 @@ class Search extends Component {
         <div className="search-card card mb-4 p-4">
           <div className="card-body">
             <h1 className="display-4 text-center">
-              <i className="fas fa-music" /> Find Your Music
+              <i className="fas fa-music"> Find Your Music</i>
             </h1>
             <p className="lead text-center">Lyrics and audio for any song</p>
             <div className="form-container">
@@ -57,16 +57,16 @@ class Search extends Component {
                   className="btn btn-outline-primary my-2 my-sm-0"
                   type="submit"
                 >
-                  <i className="fas fa-search"></i>
+                  <i className="fas fa-search" />
                 </button>
               </form>
-             
+            </div>
           </div>
         </div>
         <style jsx>{`
-           .search-card {
-              border-radius: 0;
-           }
+          .search-card {
+            border-radius: 0;
+          }
         `}</style>
       </div>
     );
