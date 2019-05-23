@@ -1,11 +1,11 @@
 {
-  "name": "user_auth",
+  "name": "sound_search",
   "version": "1.0.0",
-  "description": "",
+  "description": "lyric search app",
   "main": "server.js",
   "engines": {
     "node": "10.15.3"
-  }
+  },
   "scripts": {
     "dev": "next",
     "build": "next build",
