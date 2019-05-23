@@ -34,36 +34,40 @@ class Search extends Component {
     const { trackTitle } = this.state;
 
     return (
-      <div>
-        <Card className="mb-4 p-4">
-          <CardBody>
+      <div className="search-container">
+        <div className="search-card card mb-4 p-4">
+          <div className="card-body">
             <h1 className="display-4 text-center">
-              <i className="fas fa-music" /> Search For A Song
+              <i className="fas fa-music" /> Find Your Music
             </h1>
-            <p className="lead text-center">Get the lyrics for any song</p>
-            <Form className="search-form">
-              <FormGroup>
+            <p className="lead text-center">Lyrics and audio for any song</p>
+            <div className="form-container">
+              <form className="form-inline">
                 <Input
-                  type="text"
-                  placeholder="Song title..."
+                  className="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Search songs..."
                   name="trackTitle"
                   autocomplete="off"
                   value={trackTitle}
                   onChange={this.handleChange}
                 />
-                <Button
+                <button
                   onClick={this.handleClick}
-                  color="primary"
-                  block
-                  className="mt-2"
+                  className="btn btn-outline-primary my-2 my-sm-0"
                   type="submit"
                 >
-                  Get Track Lyrics
-                </Button>
-              </FormGroup>
-            </Form>
-          </CardBody>
-        </Card>
+                  <i className="fas fa-search"></i>
+                </button>
+              </form>
+             
+          </div>
+        </div>
+        <style jsx>{`
+           .search-card {
+              border-radius: 0;
+           }
+        `}</style>
       </div>
     );
   }
