@@ -1,10 +1,10 @@
 # Sound Search
 ![ss_screenshot](./static/images/sound_search_IMG_V01.png)
-[Sound Search]() is an application that allows users to find the lyrics to their track(s) of interest.
+[Sound Search](https://sound-search.herokuapp.com/) is an application that allows users to find the lyrics to their track(s) of interest.
 
 ### Disclaimer
 
-Not an original project! This project is a modification of a lyric search application originally created by Brad Traversy. Here is the [link](https://www.youtube.com/watch?v=NDEt0KdDbhk)
+Original project by Brad Traversy found [here](https://www.youtube.com/watch?v=NDEt0KdDbhk).
 
 ## Table of Contents
 1. [Getting Started](#getting-started)
